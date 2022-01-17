@@ -690,7 +690,12 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
     if (0 == _totalItemsCount) return;
     
-    [self scrollToIndex:(int)(_totalItemsCount * 0.5 + index)];
+    //解决非循环轮播模式下，设置index错误
+    if (self.infiniteLoop) {
+        [self scrollToIndex:(int)(_totalItemsCount * 0.5 + index)];
+    }else{
+        [self scrollToIndex:(int)index];
+    }
     
     if (self.autoScroll) {
         [self setupTimer];
